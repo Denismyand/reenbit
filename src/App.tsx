@@ -1,10 +1,13 @@
 import React from "react";
-import "./App.css";
+import "./style/App.css";
+import { Contacts } from "./components/Contacts";
+import { Chat } from "./components/Chat";
 
 export default function App() {
   return (
-    <div className="App">
-      <header className="App-header"></header>
+    <div className="application">
+      <Contacts />
+      <Chat />
     </div>
   );
 }

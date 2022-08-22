@@ -1,0 +1,28 @@
+.contactsSection {
+  display: grid;
+  border-right: 1px solid darkgrey;
+}
+.userAndSearch {
+}
+.chatHeader {
+  padding: 40px 20px 20px;
+  font-size: 30px;
+  color: #00bfff;
+}
+.profile {
+  display: grid;
+  grid-template-columns: 1fr 5fr 2fr;
+  padding: 20px 10px;
+  border-bottom: 1px solid darkgrey;
+}
+.profilePic {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+.latestMessage {
+  color: #808080;
+}
+.date {
+  text-align: center;
+}
