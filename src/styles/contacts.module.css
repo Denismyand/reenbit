@@ -8,32 +8,6 @@
   padding: 20px 20px;
   border-bottom: 1px solid #808080;
 }
-.pictureAndStatus {
-  width: 55px;
-  position: relative;
-}
-.status {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-}
-.online > .status {
-  text-align: center;
-  font-size: 16px;
-  line-height: 16px;
-  font-weight: bold;
-  background-color: #ffffff;
-  border: 2px solid #2db83d;
-  color: #2db83d;
-}
-.offline > .status {
-  background-color: #ffffff;
-  border: 2px solid #ff0000;
-}
-
 .searchBar {
   background: url(../utils/search.svg) no-repeat scroll 11px 11px;
   background-color: #ffffff;
@@ -66,11 +40,7 @@
 .nameAndMessage {
   padding-left: 10px;
 }
-.profilePic {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-}
+
 .latestMessage {
   color: #808080;
 }

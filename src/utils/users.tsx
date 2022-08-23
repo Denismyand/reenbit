@@ -93,3 +93,10 @@ export const users: Users = [
     ],
   },
 ];
+
+export const self = {
+  name: "You",
+  online: true,
+  profilePic:
+    "https://res.cloudinary.com/nvmate/image/upload/v1661260761/userProfilePic_pltsgy.png",
+};

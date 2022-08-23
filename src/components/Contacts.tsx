@@ -1,9 +1,9 @@
 import React from "react";
-import styles from "../style/contacts.module.css";
+import styles from "../styles/contacts.module.css";
 import { getDate } from "../utils/reusableFunctions";
-import { users } from "../utils/users";
+import { users, self } from "../utils/users";
 import { User } from "../utils/types";
-import yourProfilePic from "../utils/userProfilePic.jpg";
+import { MiniProfile } from "./MiniProfile";
 
 export function Contacts() {
   const sortedUsers = users.sort(
@@ -15,10 +15,7 @@ export function Contacts() {
     <>
       <div className={styles.contactsSection}>
         <div className={styles.userAndSearch}>
-          <div className={styles.pictureAndStatus + " " + styles.online}>
-            <img src={yourProfilePic} className={styles.profilePic} />
-            <div className={styles.status}>{"🗸"}</div>
-          </div>
+          <MiniProfile user={self} />
           <input className={styles.searchBar} placeholder="Search" />
         </div>
         <div className={styles.contactList}>
@@ -35,16 +32,7 @@ export function Contacts() {
 function Contact({ user }: { user: User }) {
   return (
     <div className={styles.profile} key={user.id}>
-      <div
-        className={
-          styles.pictureAndStatus +
-          " " +
-          (user.online ? styles.online : styles.offline)
-        }
-      >
-        <img className={styles.profilePic} src={user.profilePic} />
-        <div className={styles.status}>{user.online && "🗸"}</div>
-      </div>
+      <MiniProfile user={user} />
       <div>
         <p>{user.name}</p>
         <p className={styles.latestMessage}>

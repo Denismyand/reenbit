@@ -14,3 +14,9 @@ type Message = {
   type: "sent" | "received";
   time: number;
 };
+
+export type MiniProfileData = {
+  name: string;
+  profilePic: string;
+  online: boolean;
+};
