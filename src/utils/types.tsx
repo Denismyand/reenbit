@@ -20,3 +20,7 @@ export type MiniProfileData = {
   profilePic: string;
   online: boolean;
 };
+
+export type ContactsSlice = {
+  contacts: Users;
+};

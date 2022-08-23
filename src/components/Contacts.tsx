@@ -1,27 +1,41 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "../styles/contacts.module.css";
 import { getDate } from "../utils/reusableFunctions";
-import { users, self } from "../utils/users";
-import { User } from "../utils/types";
+import { self } from "../utils/users";
+import { ContactsSlice, User } from "../utils/types";
 import { MiniProfile } from "./MiniProfile";
+import { useSelector } from "react-redux";
 
 export function Contacts() {
-  const sortedUsers = users.sort(
-    (a, b) =>
-      b.messages[b.messages.length - 1].time -
-      a.messages[a.messages.length - 1].time
+  const contacts = useSelector((state: ContactsSlice) => state.contacts);
+  const [searchLine, setSearchLine] = useState("");
+  const filteredContacts = contacts.filter(
+    (contact) =>
+      contact.name.toLowerCase().includes(searchLine.toLowerCase()) ||
+      contact.surname.toLowerCase().includes(searchLine.toLowerCase())
   );
+
   return (
     <>
       <div className={styles.contactsSection}>
         <div className={styles.userAndSearch}>
           <MiniProfile user={self} />
-          <input className={styles.searchBar} placeholder="Search" />
+          <input
+            value={searchLine}
+            className={styles.searchBar}
+            placeholder="Search"
+            onChange={(e) => setSearchLine(e.target.value)}
+          />
         </div>
         <div className={styles.contactList}>
-          <p className={styles.chatHeader}>Chats</p>
-          {sortedUsers.map((user) => {
-            return <Contact user={user} />;
+          {filteredContacts.length > 0 && (
+            <p className={styles.contactsHeader}>Chats</p>
+          )}
+          {filteredContacts.length < 1 && (
+            <p className={styles.nothingIsFound}>{`Nothing is found 😢`}</p>
+          )}
+          {filteredContacts.map((contact) => {
+            return <Contact contact={contact} />;
           })}
         </div>
       </div>
@@ -29,18 +43,18 @@ export function Contacts() {
   );
 }
 
-function Contact({ user }: { user: User }) {
+function Contact({ contact }: { contact: User }) {
   return (
-    <div className={styles.profile} key={user.id}>
-      <MiniProfile user={user} />
+    <div className={styles.profile} key={contact.id}>
+      <MiniProfile user={contact} />
       <div>
-        <p>{user.name}</p>
+        <p>{contact.name}</p>
         <p className={styles.latestMessage}>
-          {user.messages[user.messages.length - 1].message}
+          {contact.messages[contact.messages.length - 1].message}
         </p>
       </div>
       <div className={styles.date}>
-        {getDate(user.messages[user.messages.length - 1].time)}
+        {getDate(contact.messages[contact.messages.length - 1].time)}
       </div>
     </div>
   );
