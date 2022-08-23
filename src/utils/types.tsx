@@ -1,0 +1,16 @@
+export type Users = User[];
+
+export type User = {
+  id: string;
+  name: string;
+  surname: string;
+  profilePic: string;
+  online: boolean;
+  messages: Message[];
+};
+
+type Message = {
+  message: string;
+  type: "sent" | "received";
+  time: number;
+};
