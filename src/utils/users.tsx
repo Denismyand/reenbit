@@ -10,7 +10,7 @@ export const users: Users = [
       "https://res.cloudinary.com/nvmate/image/upload/v1661189924/H%20x%20H/chrollo_lucifer_upy4v9.jpg",
     online: true,
     messages: [
-      { message: "Well. Hello there.", type: "sent", time: 1661190748325 },
+      { message: "Well. Hello there.", type: "received", time: 1661190748325 },
     ],
   },
   {
@@ -20,7 +20,7 @@ export const users: Users = [
     profilePic:
       "https://res.cloudinary.com/nvmate/image/upload/v1661189924/H%20x%20H/gon_freecss_driskj.jpg",
     online: true,
-    messages: [{ message: "OZ!", type: "sent", time: 1661190811333 }],
+    messages: [{ message: "OZ!", type: "received", time: 1661190811333 }],
   },
   {
     id: uuidv4(),
@@ -32,7 +32,7 @@ export const users: Users = [
     messages: [
       {
         message: "Did you not recognize me?",
-        type: "sent",
+        type: "received",
         time: 1661191012510,
       },
     ],
@@ -47,7 +47,7 @@ export const users: Users = [
     messages: [
       {
         message: "*cough*",
-        type: "sent",
+        type: "received",
         time: 1661191031569,
       },
     ],
@@ -59,7 +59,7 @@ export const users: Users = [
     profilePic:
       "https://res.cloudinary.com/nvmate/image/upload/v1661189923/H%20x%20H/killua_zoldyck_xnibj9.jpg",
     online: true,
-    messages: [{ message: "Meow.", type: "sent", time: 1661191051364 }],
+    messages: [{ message: "Meow.", type: "received", time: 1661191051364 }],
   },
   {
     id: uuidv4(),
@@ -68,7 +68,7 @@ export const users: Users = [
     profilePic:
       "https://res.cloudinary.com/nvmate/image/upload/v1661189923/H%20x%20H/ging_freecss_nmevpf.jpg",
     online: true,
-    messages: [{ message: "...", type: "sent", time: 1661191072075 }],
+    messages: [{ message: "...", type: "received", time: 1661191072075 }],
   },
   {
     id: uuidv4(),
@@ -78,7 +78,7 @@ export const users: Users = [
       "https://res.cloudinary.com/nvmate/image/upload/v1661189923/H%20x%20H/isaac_netero_xk23p5.jpg",
     online: false,
     messages: [
-      { message: "Helooo, hahahaha.", type: "sent", time: 1661191091819 },
+      { message: "Helooo, hahahaha.", type: "received", time: 1661191091819 },
     ],
   },
   {
@@ -89,7 +89,7 @@ export const users: Users = [
       "https://res.cloudinary.com/nvmate/image/upload/v1661189923/H%20x%20H/hisoka_morow_ntfade.jpg",
     online: true,
     messages: [
-      { message: "Ahh, here you are.", type: "sent", time: 1661191136526 },
+      { message: "Ahh, here you are.", type: "received", time: 1661191136526 },
     ],
   },
 ];

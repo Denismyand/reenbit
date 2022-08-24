@@ -11,7 +11,7 @@ export function getDateTime(time: number) {
     "/" +
     date.getDate() +
     "/" +
-    date.getFullYear() +
+    (date.getFullYear() - 2000) +
     ", " +
     hours +
     ":" +

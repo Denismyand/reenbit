@@ -17,6 +17,44 @@
   font-weight: bold;
 }
 .chatWindow {
+  padding: 10px;
+  background-color: #f7f7f7;
+  overflow: scroll;
+}
+.chatWindow::-webkit-scrollbar {
+  display: none;
+}
+.chatSenderPic {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+}
+.chatMessage {
+  display: grid;
+  grid-template-columns: 50px 1fr;
+}
+.chatMessageInfo {
+  padding: 0 10px;
+  grid-column: 2;
+}
+.chatMessageText {
+  height: 50px;
+  font-size: 18px;
+  line-height: 20px;
+  padding: 15px;
+  display: inline-block;
+  border-radius: 50px;
+}
+.received {
+  background-color: #1c2e4a;
+  color: #ffffff;
+}
+.sent {
+  background-color: #e6e6e6;
+}
+.chatMessageDate {
+  padding: 10px 15px;
+  color: #808080;
 }
 .chatInputSection {
   position: relative;
