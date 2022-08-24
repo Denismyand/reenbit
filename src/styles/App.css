@@ -2,3 +2,6 @@
   display: grid;
   grid-template-columns: 2fr 4fr;
 }
+.body {
+  min-width: 100vw;
+}
