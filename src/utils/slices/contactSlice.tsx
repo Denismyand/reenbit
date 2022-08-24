@@ -9,13 +9,12 @@ const contactSlice = createSlice({
   initialState: contacts,
   reducers: {
     addMessage(state, action) {
-      let nextState = state.map((user) => {
+      return (state = state.map((user) => {
         if (user.id === action.payload.id) {
           return action.payload;
         }
         return user;
-      });
-      return (state = nextState);
+      }));
     },
   },
 });

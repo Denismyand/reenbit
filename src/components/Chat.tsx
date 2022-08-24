@@ -6,6 +6,8 @@ import { getDateTime } from "../utils/reusableFunctions";
 import { useDispatch } from "react-redux";
 import { addMessage } from "../utils/slices/contactSlice";
 
+let timer: NodeJS.Timeout;
+
 export function Chat({
   contact,
   setContact,
@@ -16,9 +18,30 @@ export function Chat({
   const [newMessage, setNewMessage] = useState("");
   const scrollRef = useRef<null | HTMLDivElement>(null);
 
+  const getJoke = () => {
+    fetch("https://api.chucknorris.io/jokes/random")
+      .then((response) => response.json())
+      .then((data) =>
+        updateMessages({
+          message: data.value,
+          type: "received",
+          time: Date.now(),
+        })
+      );
+  };
+
   const dispatch = useDispatch();
 
-  function sendMessage(message: Message) {
+  function receiveResponse() {
+    clearTimeout(timer);
+    timer = setTimeout(() => getJoke(), 10000);
+  }
+
+  function sendMessage() {
+    updateMessages({ message: newMessage, type: "sent", time: Date.now() });
+  }
+
+  function updateMessages(message: Message) {
     let updatedContact = {
       ...contact,
       messages: [...contact.messages, message],
@@ -55,11 +78,7 @@ export function Chat({
         className={styles.chatInputSection}
         onSubmit={(e) => {
           e.preventDefault();
-          sendMessage({
-            message: newMessage,
-            type: "sent",
-            time: Date.now(),
-          });
+          receiveResponse();
           setNewMessage("");
         }}
       >
@@ -72,6 +91,7 @@ export function Chat({
         <button
           className={styles.newMessageSendButton}
           type="submit"
+          onClick={() => sendMessage()}
           disabled={newMessage === ""}
         />
       </form>
