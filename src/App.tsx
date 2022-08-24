@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./styles/App.css";
 import styles from "./styles/contacts.module.css";
 import { getDate } from "./utils/reusableFunctions";
@@ -22,6 +22,10 @@ export default function App() {
       a.messages[a.messages.length - 1].time
   );
   const [selectedContact, setSelectedContact] = useState(filteredContacts[0]);
+
+  useEffect(() => {
+    localStorage.setItem("contacts", JSON.stringify(contacts));
+  }, [contacts]);
 
   return (
     <div className="application">

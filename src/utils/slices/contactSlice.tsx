@@ -2,7 +2,9 @@ import { createSlice } from "@reduxjs/toolkit";
 import { Users } from "../types";
 import { users } from "../users";
 
-const contacts: Users = users;
+let storedContacts = localStorage.getItem("contacts");
+
+const contacts: Users = storedContacts ? JSON.parse(storedContacts) : users;
 
 const contactSlice = createSlice({
   name: "users",
