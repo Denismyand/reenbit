@@ -1,11 +1,43 @@
-import React, { useState } from "react";
-import { User } from "../utils/types";
+import React, { useEffect, useRef, useState } from "react";
+import { Message, User } from "../utils/types";
 import styles from "../styles/chat.module.css";
 import { MiniProfile } from "./MiniProfile";
 import { getDateTime } from "../utils/reusableFunctions";
+import { useDispatch } from "react-redux";
+import { addMessage } from "../utils/slices/contactSlice";
 
-export function Chat({ contact }: { contact: User }) {
+export function Chat({
+  contact,
+  setContact,
+}: {
+  contact: User;
+  setContact: (contact: User) => void;
+}) {
   const [newMessage, setNewMessage] = useState("");
+  const scrollRef = useRef<null | HTMLDivElement>(null);
+
+  const dispatch = useDispatch();
+
+  function sendMessage(message: Message) {
+    let updatedContact = {
+      ...contact,
+      messages: [...contact.messages, message],
+    };
+    setContact(updatedContact);
+  }
+
+  useEffect(() => {
+    function scrollToBottom() {
+      if (scrollRef.current) {
+        scrollRef.current.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+    function addMessageToHistory() {
+      dispatch(addMessage(contact));
+    }
+    scrollToBottom();
+    addMessageToHistory();
+  }, [contact, dispatch]);
 
   return (
     <div className={styles.chat}>
@@ -15,36 +47,19 @@ export function Chat({ contact }: { contact: User }) {
       </div>
       <div className={styles.chatWindow}>
         {contact.messages.map((message) => (
-          <div className={styles.chatMessage} key={message.time}>
-            {message.type === "received" && (
-              <img className={styles.chatSenderPic} src={contact.profilePic} />
-            )}
-            <div
-              className={styles.chatMessageInfo}
-              style={{
-                textAlign: message.type === "received" ? "left" : "right",
-              }}
-            >
-              <p
-                className={
-                  styles.chatMessageText +
-                  " " +
-                  (message.type === "received" ? styles.received : styles.sent)
-                }
-              >
-                {message.message}
-              </p>
-              <p className={styles.chatMessageDate}>
-                {getDateTime(message.time)}
-              </p>
-            </div>
-          </div>
+          <ChatMessage key={message.time} contact={contact} message={message} />
         ))}
+        <div ref={scrollRef} />
       </div>
       <form
         className={styles.chatInputSection}
         onSubmit={(e) => {
           e.preventDefault();
+          sendMessage({
+            message: newMessage,
+            type: "sent",
+            time: Date.now(),
+          });
           setNewMessage("");
         }}
       >
@@ -54,8 +69,49 @@ export function Chat({ contact }: { contact: User }) {
           onChange={(e) => setNewMessage(e.target.value)}
           placeholder={"Type your message"}
         />
-        <button className={styles.newMessageSendButton} type="submit" />
+        <button
+          className={styles.newMessageSendButton}
+          type="submit"
+          disabled={newMessage === ""}
+        />
       </form>
+    </div>
+  );
+}
+
+function ChatMessage({
+  contact,
+  message,
+}: {
+  contact: User;
+  message: Message;
+}) {
+  return (
+    <div className={styles.chatMessage}>
+      {message.type === "received" && (
+        <img
+          className={styles.chatSenderPic}
+          src={contact.profilePic}
+          alt={contact.name}
+        />
+      )}
+      <div
+        className={styles.chatMessageInfo}
+        style={{
+          textAlign: message.type === "received" ? "left" : "right",
+        }}
+      >
+        <p
+          className={
+            styles.chatMessageText +
+            " " +
+            (message.type === "received" ? styles.received : styles.sent)
+          }
+        >
+          {message.message}
+        </p>
+        <p className={styles.chatMessageDate}>{getDateTime(message.time)}</p>
+      </div>
     </div>
   );
 }

@@ -9,7 +9,7 @@ export type User = {
   messages: Message[];
 };
 
-type Message = {
+export type Message = {
   message: string;
   type: "sent" | "received";
   time: number;

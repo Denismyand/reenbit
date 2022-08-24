@@ -16,6 +16,11 @@ export default function App() {
       contact.name.toLowerCase().includes(searchLine.toLowerCase()) ||
       contact.surname.toLowerCase().includes(searchLine.toLowerCase())
   );
+  filteredContacts.sort(
+    (a, b) =>
+      b.messages[b.messages.length - 1].time -
+      a.messages[a.messages.length - 1].time
+  );
   const [selectedContact, setSelectedContact] = useState(filteredContacts[0]);
 
   return (
@@ -48,7 +53,7 @@ export default function App() {
           })}
         </div>
       </div>
-      <Chat contact={selectedContact} />
+      <Chat contact={selectedContact} setContact={setSelectedContact} />
     </div>
   );
 }

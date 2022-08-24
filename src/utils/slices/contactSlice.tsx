@@ -2,21 +2,23 @@ import { createSlice } from "@reduxjs/toolkit";
 import { Users } from "../types";
 import { users } from "../users";
 
-const contacts: Users = users.sort(
-  (a, b) =>
-    b.messages[b.messages.length - 1].time -
-    a.messages[a.messages.length - 1].time
-);
+const contacts: Users = users;
 
 const contactSlice = createSlice({
   name: "users",
   initialState: contacts,
   reducers: {
-    changeContactList(state, action: { payload: Users }) {
-      return (state = action.payload);
+    addMessage(state, action) {
+      let nextState = state.map((user) => {
+        if (user.id === action.payload.id) {
+          return action.payload;
+        }
+        return user;
+      });
+      return (state = nextState);
     },
   },
 });
 
 export default contactSlice.reducer;
-export const { changeContactList } = contactSlice.actions;
+export const { addMessage } = contactSlice.actions;
