@@ -1,13 +1,13 @@
 .contactsSection {
   display: grid;
   grid-template-rows: 1fr 9fr;
-  border-right: 1px solid #808080;
+  border-right: 1px solid #e6e6e6;
   height: 100vh;
 }
 .userAndSearch {
   background-color: #e6e6e6;
   padding: 20px 20px;
-  border-bottom: 1px solid #808080;
+  border-bottom: 1px solid #e6e6e6;
 }
 .searchBar {
   background: url(../utils/search.svg) no-repeat scroll 11px 11px;
@@ -38,11 +38,15 @@
 .contactList::-webkit-scrollbar {
   display: none;
 }
-.profile {
+.contact {
   display: grid;
   grid-template-columns: 70px 5fr 2fr;
   padding: 20px 10px 20px 20px;
-  border-bottom: 1px solid #808080;
+  border-bottom: 1px solid #e6e6e6;
+}
+.contact:hover {
+  cursor: pointer;
+  background-color: #e6e6e6;
 }
 .nameAndMessage {
   padding-left: 10px;

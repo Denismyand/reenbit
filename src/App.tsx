@@ -16,6 +16,7 @@ export default function App() {
       contact.name.toLowerCase().includes(searchLine.toLowerCase()) ||
       contact.surname.toLowerCase().includes(searchLine.toLowerCase())
   );
+  const [selectedContact, setSelectedContact] = useState(filteredContacts[0]);
 
   return (
     <div className="application">
@@ -37,18 +38,30 @@ export default function App() {
             <p className={styles.nothingIsFound}>{`Nothing is found 😢`}</p>
           )}
           {filteredContacts.map((contact) => {
-            return <Contact contact={contact} />;
+            return (
+              <Contact
+                key={contact.id}
+                contact={contact}
+                setSelectedContact={setSelectedContact}
+              />
+            );
           })}
         </div>
       </div>
-      <Chat />
+      <Chat contact={selectedContact} />
     </div>
   );
 }
 
-function Contact({ contact }: { contact: User }) {
+function Contact({
+  contact,
+  setSelectedContact,
+}: {
+  contact: User;
+  setSelectedContact: (contact: User) => void;
+}) {
   return (
-    <div className={styles.profile} key={contact.id}>
+    <div className={styles.contact} onClick={() => setSelectedContact(contact)}>
       <MiniProfile user={contact} />
       <div>
         <p>{contact.name}</p>
