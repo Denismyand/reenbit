@@ -2,6 +2,9 @@
   display: grid;
   grid-template-columns: 2fr 4fr;
 }
-.body {
-  min-width: 100vw;
+
+@media (max-width: 800px) {
+  .application {
+    grid-template-columns: 2fr 6fr;
+  }
 }

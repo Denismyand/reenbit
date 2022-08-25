@@ -1,6 +1,6 @@
 .contactsSection {
   display: grid;
-  min-width: 215px;
+  min-width: 130px;
   grid-template-rows: 1fr 9fr;
   border-right: 1px solid #808080;
   height: 100vh;
@@ -58,4 +58,18 @@
 }
 .date {
   text-align: center;
+}
+@media (max-width: 800px) {
+  .contactsSection > * {
+    text-align: center;
+  }
+  .contact {
+    grid-template-columns: 1fr;
+  }
+  .latestMessage {
+    display: none;
+  }
+  .date {
+    display: none;
+  }
 }

@@ -34,3 +34,5 @@
   width: 55px;
   cursor: pointer;
 }
+@media (max-width: 500px) {
+}

@@ -16,7 +16,7 @@ export function MiniProfile({ user }: { user: MiniProfileData }) {
         src={user.profilePic}
         alt={user.name}
       />
-      <div className={styles.status}>{user.online && "🗸"}</div>
+      <div className={styles.status}>{user.online && "✔️"}</div>
     </div>
   );
 }
