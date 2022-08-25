@@ -18,7 +18,7 @@ export function GoogleLogin() {
   }
 
   const login = useGoogleLogin({
-    onSuccess: (response) => {
+    onSuccess: (response: any) => {
       handleAuthorizeUser(response.authuser);
       getContacts(response.authuser);
     },
