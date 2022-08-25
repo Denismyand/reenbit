@@ -1,10 +1,17 @@
 import React from "react";
 import { googleLogout, useGoogleLogin } from "@react-oauth/google";
 import { useDispatch } from "react-redux";
-import { changeUser } from "../utils/slices/contactSlice";
+import { changeUser, setContacts } from "../utils/slices/contactsSlice";
 
 export function GoogleLogin() {
   const dispatch = useDispatch();
+
+  function getContacts(user: string) {
+    let storedContacts = localStorage.getItem(`Chats of user ${user}`);
+    if (storedContacts && storedContacts !== "") {
+      dispatch(setContacts(JSON.parse(storedContacts)));
+    }
+  }
 
   function handleAuthorizeUser(user: string) {
     dispatch(changeUser(user));
@@ -13,6 +20,7 @@ export function GoogleLogin() {
   const login = useGoogleLogin({
     onSuccess: (response) => {
       handleAuthorizeUser(response.authuser);
+      getContacts(response.authuser);
     },
     flow: "auth-code",
   });

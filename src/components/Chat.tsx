@@ -4,7 +4,7 @@ import styles from "../styles/chat.module.css";
 import { MiniProfile } from "./MiniProfile";
 import { getDateTime } from "../utils/reusableFunctions";
 import { useDispatch } from "react-redux";
-import { addMessage } from "../utils/slices/contactSlice";
+import { addMessage } from "../utils/slices/contactsSlice";
 
 let timer: NodeJS.Timeout;
 

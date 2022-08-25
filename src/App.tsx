@@ -1,98 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "./styles/App.css";
-import styles from "./styles/contacts.module.css";
-import { getDate } from "./utils/reusableFunctions";
-import { self } from "./utils/users";
-import { ContactsState, User } from "./utils/types";
-import { MiniProfile } from "./components/MiniProfile";
+import { ContactsState } from "./utils/types";
 import { useSelector } from "react-redux";
-import { Chat } from "./components/Chat";
 import { GoogleLogin } from "./components/googleSignIn";
+import { ChatApp } from "./components/ChatApp";
 
 export default function App() {
-  const contacts = useSelector((state: ContactsState) => state.contacts);
   const authUser = useSelector((state: ContactsState) => state.auth);
-  const [searchLine, setSearchLine] = useState("");
 
-  const filteredContacts = contacts.filter(
-    (contact) =>
-      contact.name.toLowerCase().includes(searchLine.toLowerCase()) ||
-      contact.surname.toLowerCase().includes(searchLine.toLowerCase())
-  );
-
-  filteredContacts.sort(
-    (a, b) =>
-      b.messages[b.messages.length - 1].time -
-      a.messages[a.messages.length - 1].time
-  );
-
-  const [selectedContact, setSelectedContact] = useState(filteredContacts[0]);
-
-  useEffect(() => {
-    localStorage.setItem("contacts", JSON.stringify(contacts));
-  }, [contacts]);
-
-  return (
-    <>
-      {authUser !== "" ? (
-        <div className="application">
-          <div className={styles.contactsSection}>
-            <div className={styles.userAndSearch}>
-              <MiniProfile user={self} />
-              <input
-                value={searchLine}
-                className={styles.searchBar}
-                placeholder="Search"
-                onChange={(e) => setSearchLine(e.target.value)}
-              />
-            </div>
-            <div className={styles.contactList}>
-              {filteredContacts.length > 0 && (
-                <p className={styles.contactsHeader}>Chats</p>
-              )}
-              {filteredContacts.length < 1 && (
-                <p className={styles.nothingIsFound}>{`Nothing is found 😢`}</p>
-              )}
-              {filteredContacts.map((contact) => {
-                return (
-                  <Contact
-                    key={contact.id}
-                    contact={contact}
-                    setSelectedContact={setSelectedContact}
-                  />
-                );
-              })}
-            </div>
-          </div>
-          <Chat contact={selectedContact} setContact={setSelectedContact} />
-          <GoogleLogin />
-        </div>
-      ) : (
-        <GoogleLogin />
-      )}
-    </>
-  );
-}
-
-function Contact({
-  contact,
-  setSelectedContact,
-}: {
-  contact: User;
-  setSelectedContact: (contact: User) => void;
-}) {
-  return (
-    <div className={styles.contact} onClick={() => setSelectedContact(contact)}>
-      <MiniProfile user={contact} />
-      <div>
-        <p>{contact.name}</p>
-        <p className={styles.latestMessage}>
-          {contact.messages[contact.messages.length - 1].message}
-        </p>
-      </div>
-      <div className={styles.date}>
-        {getDate(contact.messages[contact.messages.length - 1].time)}
-      </div>
-    </div>
-  );
+  return authUser && authUser !== "" ? <ChatApp /> : <GoogleLogin />;
 }

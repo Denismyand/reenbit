@@ -2,19 +2,22 @@ import { createSlice } from "@reduxjs/toolkit";
 import { Users } from "../types";
 import { users } from "../users";
 
-let authUser = "";
+const storedUserId = localStorage.getItem(`current session`);
+
+const authUser = storedUserId ? storedUserId : "";
 
 const authentificator = createSlice({
   name: "googleAuth",
   initialState: authUser,
   reducers: {
     changeUser(state, action) {
-      return (state = action.payload.toString());
+      localStorage.setItem(`current session`, action.payload);
+      return (state = action.payload);
     },
   },
 });
 
-let storedContacts = localStorage.getItem("contacts");
+const storedContacts = localStorage.getItem(`Chats of user ${authUser}`);
 
 const contacts: Users = storedContacts ? JSON.parse(storedContacts) : users;
 
@@ -30,6 +33,9 @@ const contactList = createSlice({
         return user;
       }));
     },
+    setContacts(state, action) {
+      return (state = action.payload);
+    },
   },
 });
 
@@ -37,5 +43,5 @@ export const contactsReducers = {
   contacts: contactList.reducer,
   authentificator: authentificator.reducer,
 };
-export const { addMessage } = contactList.actions;
+export const { addMessage, setContacts } = contactList.actions;
 export const { changeUser } = authentificator.actions;
