@@ -21,6 +21,15 @@ export type MiniProfileData = {
   online: boolean;
 };
 
-export type ContactsSlice = {
+export type ContactsState = {
   contacts: Users;
+  auth: string;
 };
+
+declare global {
+  namespace NodeJS {
+    interface ProcessEnv {
+      REACT_APP_CLIENT_ID: string;
+    }
+  }
+}
