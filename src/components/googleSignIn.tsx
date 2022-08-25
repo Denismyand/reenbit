@@ -1,9 +1,10 @@
 import React from "react";
+import styles from "../styles/googleAuth.module.css";
 import { googleLogout, useGoogleLogin } from "@react-oauth/google";
 import { useDispatch } from "react-redux";
 import { changeUser, setContacts } from "../utils/slices/contactsSlice";
 
-export function GoogleLogin() {
+export function LoginPage() {
   const dispatch = useDispatch();
 
   function getContacts(user: string) {
@@ -25,7 +26,17 @@ export function GoogleLogin() {
     flow: "auth-code",
   });
 
-  return <button onClick={login}>Log in </button>;
+  return (
+    <>
+      <div className={styles.loginPage}>
+        <div className={styles.loginWindonw}>
+          <h2>Welcome</h2>
+          <p>Please sign in with your google account</p>
+          <button className={styles.logInButton} onClick={login} />
+        </div>
+      </div>
+    </>
+  );
 }
 
 export function GoogleLogout() {
@@ -40,5 +51,9 @@ export function GoogleLogout() {
     googleLogout();
   }
 
-  return <button onClick={handleLogout}> Logout</button>;
+  return (
+    <button className={styles.logOutButton} onClick={handleLogout}>
+      Logout
+    </button>
+  );
 }

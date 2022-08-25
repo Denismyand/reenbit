@@ -1,5 +1,6 @@
 .contactsSection {
   display: grid;
+  min-width: 215px;
   grid-template-rows: 1fr 9fr;
   border-right: 1px solid #808080;
   height: 100vh;
